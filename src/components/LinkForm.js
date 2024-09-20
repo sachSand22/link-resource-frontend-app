@@ -5,6 +5,10 @@ const LinkForm = () => {
   const [teamName, setTeamName] = useState('');
   const [links, setLinks] = useState([{ url: '', title: '' }]);
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  // Get API URL from environment variable
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/links';
 
   // Handle change in team dropdown
   const handleTeamChange = (event) => {
@@ -27,8 +31,9 @@ const LinkForm = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading state to true
     axios
-      .post(`http://localhost:8080/api/links/${teamName}/map`, links)
+      .post(`${API_URL}/${teamName}/map`, links)
       .then((res) => {
         setSuccessMessage('Link Successfully added');
         // Clear form fields after successful submission
@@ -38,6 +43,9 @@ const LinkForm = () => {
       .catch((err) => {
         console.error(err);
         setSuccessMessage('Error adding link');
+      })
+      .finally(() => {
+        setLoading(false); // Reset loading state
       });
   };
 
@@ -47,7 +55,7 @@ const LinkForm = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Team Name:</label>
-          <select value={teamName} onChange={handleTeamChange}>
+          <select value={teamName} onChange={handleTeamChange} required>
             <option value="">Select Team</option>
             <option value="AI_Ops">AI_Ops</option>
             <option value="ML_Engineering">ML_Engineering</option>
@@ -80,7 +88,9 @@ const LinkForm = () => {
             Add Another Link
           </button>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
+        </button>
       </form>
       {successMessage && <p>{successMessage}</p>}
     </div>
