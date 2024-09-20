@@ -4,7 +4,6 @@ import axios from 'axios';
 const LinkForm = () => {
   const [teamName, setTeamName] = useState('');
   const [links, setLinks] = useState([{ url: '', title: '' }]);
-  const [response, setResponse] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
   // Handle change in team dropdown
@@ -31,7 +30,6 @@ const LinkForm = () => {
     axios
       .post(`http://localhost:8080/api/links/${teamName}/map`, links)
       .then((res) => {
-        setResponse(res.data);
         setSuccessMessage('Link Successfully added');
         // Clear form fields after successful submission
         setTeamName('');
