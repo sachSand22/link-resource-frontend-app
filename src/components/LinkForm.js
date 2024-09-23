@@ -7,8 +7,8 @@ const LinkForm = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   
-  // Get API URL from environment variable
-  const API_URL = process.env.REACT_APP_API_URL;
+  // Hardcoded API URL
+  const API_URL = 'https://learn-backapp.azurewebsites.net/api/links';
 
   // Handle change in team dropdown
   const handleTeamChange = (event) => {
@@ -53,7 +53,6 @@ const LinkForm = () => {
       });
   };
   
-
   return (
     <div>
       <h1>Link Mapping Form</h1>
