@@ -8,7 +8,7 @@ const LinkForm = () => {
   const [loading, setLoading] = useState(false);
   
   // Get API URL from environment variable
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/links';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // Handle change in team dropdown
   const handleTeamChange = (event) => {
