@@ -32,6 +32,10 @@ const LinkForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true); // Set loading state to true
+  
+    console.log('API URL:', API_URL);
+    console.log('Team Name:', teamName);
+  
     axios
       .post(`${API_URL}/${teamName}/map`, links)
       .then((res) => {
@@ -48,6 +52,7 @@ const LinkForm = () => {
         setLoading(false); // Reset loading state
       });
   };
+  
 
   return (
     <div>
